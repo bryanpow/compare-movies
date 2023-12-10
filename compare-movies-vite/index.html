@@ -5,9 +5,176 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
+    <link rel="stylesheet" href="/src/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script type="module" src="/src/main.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/main.js"></script>
+    <div id="app">
+      <header>
+        <div id="logo"><a href="/"><h2 style="font-weight: normal;">MovieMetrics</h2></a></div>
+        <div id="nav">
+          <p id="restoreDefault" style="border: 2px solid black; color: white " >Restore Default Movies</p>
+          <a id="ho" href="/Movies"><p class="gr">Movies</p></a>
+          <a href="/Charts"><p class="gr">Charts</p></a>
+          <a href="/#br"><p class="gr">Sources</p></a>
+        </div>
+      </header>
+      <main>
+        <div id="landp">
+        <div id="land">
+          <div id="desc">
+          <h2>Discover <strong>MovieMetrics</strong></h2>
+          <p>
+            Your go-to destination for comprehensive movie analysis. Dive into dynamic charts, effortlessly compare ratings and earnings, and stay informed about domestic cinematic trends—all in one intuitive platform.
+            </p>
+            <a href="/Movies"><button id="start">Get Started</button></a>
+          </div>
+          <img id="graphic" src="public/weblight.svg" width="670px" height="700px">
+        </div>
+        <div id="pos">
+          <div class="homeInfo">
+           
+            <div class="right" data-aos="fade-rightç" data-aos-duration="900">
+            <h1>Movie Search and Display 🔍</h1>
+            <p>Explore the vast world of cinema with our intuitive movie search and display feature. Easily discover and retrieve automated data for popular titles. Whether you're looking for your favorite classics or the latest blockbusters, our search engine makes it a breeze to find and display detailed information for any movie.</p>
+            </div>
+          </div>
+          <div class="homeInfo">
+          
+            <div class="right" data-aos="fade-right" data-aos-duration="900">
+            <h1>Interactive Movie Comparison Charts 📊</h1>
+            <p>Dive into the data-driven experience of our interactive movie comparison charts. Uncover insights into box office performance, ratings, and the intriguing contrast between critic and audience opinions. Visualize the data in beautifully crafted charts that allow you to compare and contrast the movies you love.</p>
+          </div>
+          </div>
+          <div class="homeInfo" >
+          
+            <div class="right" id="one" data-aos="fade-right" data-aos-duration="900">
+            <h1>Personalized Movie Insights 🎬
+              </h1>
+            <p>Our platform empowers you to curate your own collection of movies, explore their data, and make informed decisions about your next cinematic journey. Your movie-watching experience just got a whole lot smarter.</p>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div id="moviePage">
+        <div id="movieIntro">
+          <div id=textMov><h1>Movies</h1><p> Easily add new movies to the lineup and discover pre-populated data for recognized titles. Immerse yourself in the cinematic world as you delve into insightful charts comparing movie ratings and box office performance.</p></div>
+          <img src="/public/Film rolls-amico.svg" width="550px">
+        </div>
+        <div id="movies">
+        
+          <div id="add-movie">
+            <form id="movieForm">
+              
+              <h3 id='formTitle' style="font-weight: 400">Add Movie +</h3>
+              <div id="formItems">
+               
+               <div class="in">
+                <label for="title">Movie-Title: </label>
+              <input type="text" name="title" id="title" required >
+              <button id="titleSub" type="submit">Search</button>
+              </div>
+
+              <div class="in">
+                <label for="critic">Critic Score: </label>
+                <input type="number" name="critic" id="critic" required>
+              </div>
+              
+              <div class="in">
+                <label for='audience'>Viewer Score: </label>
+              <input type="number" name="audience" id="audience" required>
+              </div>
+
+              <div class="in">
+                <label for="box">Box Office: </label>
+              <input type=text name="box" id="box" required>
+              </div>
+
+              <div class="in">
+                <label for=genre>Genre:</label>
+              <select id="genre" name="genre" required>
+                <option value="" disabled selected>Select genre</option>
+                <option value="action">Action</option>
+                <option value="adventure">Adventure</option>
+                <option value="comedy">Comedy</option>
+                <option value="drama">Drama</option>
+                <option value="horror">Horror</option>
+                <option value="documentary">Documentary</option>
+                <option value="musical">Musical</option>
+                <option value="romance">Romance</option>
+                <option value="sci-fi">Sci-Fi</option>
+                <option value="thriller">Thriller</option>
+              </select>
+              </div>
+              <div id="butts">
+              <button id="formSub" class="in">Add</button> 
+            </div>
+            </div>
+            </form>
+          </div>
+          </div>
+          <div id="display-movies">
+          </div>
+          </div>
+          <div id="container">
+            <div id="top">
+              <canvas id="bar"></canvas>
+            </div>
+           <div id="small">
+            <div id="p">
+              <canvas id="pie"></canvas>
+            </div>
+            <div id="s">
+              <canvas id="scatter"></canvas>
+            </div>
+           </div>
+          </div>
+        </div>
+      </main>
+      <footer id="br">
+        <div id="border">
+        <div id="info">
+        <div class="foot" id="comp"><h3>MOVIEMETRICS</h3>Explore, compare, and discover your favorite movies through insightful charts and data. </div>
+        <div class="foot" id="features">
+          <h3>FEATURES</h3>
+          <p>Display</p>
+          <p>Movie Data</p>
+          <p>Charts</p>
+          <p>Comparisons</p>
+        </div>
+        <div class="foot" id="link">
+          <h3>SOURCES</h3>
+          <a class ='bub' id="white3" href="https://www.omdbapi.com/" target="_blank">API</a>
+          <a  class='bub' id="white" href="https://storyset.com/home" target="_blank">Graphic 1 (StorySet)</a>
+          <a class="bub" id='white2' href="https://storyset.com/home" target="_blank">Grapic 2 (StorySet)</a>
+        </div>
+        <div class=foot id="contact">
+          <h3>CONTACT</h3>
+          <div class="con"><img src="/public/home.png" width="20px" height="20px"><p>New York, U.S.</p></div>
+          <div class="con"><img src="/public/mail.png" width="20px" height="20px"><p>RamosBusiness</p></div>
+          <div class="con"><img src='/public/telephone.png'  width="20px" height="20px"><p>+01 347-564-3844</p></div>
+          <!-- <div><img src="/src/github.png"  width="20px"><p>bryanpow</p></div> -->
+        </div>
+      </div>
+      <div id="bot">
+        <div id="copy"><p>&copy;2023 Bryan Ramos</p></div>
+        <div id="icons">
+          <a href="https://www.linkedin.com/in/bryan-ramos-174826279/" target="_blank"><img src="/public/social.png" width="50px"></a>
+          <a href="https://github.com/bryanpow" target="_blank"><img src='/public/github.png' width="35px"></a>
+        </div>
+      </div>
+        </div>
+      </footer>
+    </div>
+    <script>
+      AOS.init({
+        once: true
+      });
+    </script>
   </body>
 </html>
