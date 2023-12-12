@@ -8,17 +8,48 @@ const button = document.getElementById('titleSub');
 import {getCard, setCard, addCard, removeCard, getDefault,setDefault, addDefault, removeDef} from './localStorage'
 let titleData = null;
 
+
+let seClicked = false;
+const handleSettings = () => {
+        if (!seClicked){
+            seClicked = true
+            document.getElementById('restoreDefault').style.height = '100%';
+            document.getElementById('restoreDefault').style.opacity = '1';
+            document.getElementById('restoreDefault').style.transform = 'translateY(0px)';
+            document.getElementById('se').innerText = 'Settings ↑'
+           
+            document.getElementById('clearDef').style.height = '100%';
+            document.getElementById('clearDef').style.opacity = '1';
+            document.getElementById('clearDef').style.transform = 'translateY(0px)';
+           
+        } else {
+            seClicked = false;
+            document.getElementById('restoreDefault').style.height = '0';
+            document.getElementById('restoreDefault').style.opacity = '0';
+            document.getElementById('restoreDefault').style.transform = 'translateY(-10px)';
+            document.getElementById('se').innerText = 'Settings ↓'
+            document.getElementById('clearDef').style.height = '0';
+            document.getElementById('clearDef').style.opacity = '0';
+            document.getElementById('clearDef').style.transform = 'translateY(-10px)';
+        } 
+}
+
+document.getElementById('se').addEventListener('click', handleSettings)
+
+
 document.addEventListener('DOMContentLoaded', handleRouting)
 const movieSection = document.getElementById('display-movies')
-const addedMovies = new Set()
+const addedMovies = new Set();
+
 if (!getCard) setCard([]);
 
 const getMovie = async (event) => {
     let url = `http://www.omdbapi.com/?apikey=191759f3&&t=${titleData}`;
     const response = await fetch(url);
     const jsonResponse = await response.json()
-    console.log(jsonResponse);
-    const img = jsonResponse['Poster']
+    console.log(jsonResponse['Response']);
+    if (jsonResponse['Response'] === 'True') {
+        const img = jsonResponse['Poster']
     localStorage.setItem(`Image`, img);
     if (jsonResponse['Title']) {
         title.value = jsonResponse['Title']
@@ -27,21 +58,35 @@ const getMovie = async (event) => {
         document.getElementById('critic').value = jsonResponse['Ratings'][1]['Value'].replace(/%/g, '');
         document.getElementById('audience').value = parseFloat(jsonResponse['Ratings'][0]['Value'].split('/')[0] * 10);
     } else {
-        document.getElementById('critic').placeholder = 'enter';
-        document.getElementById('audience').placeholder = 'enter'
+        document.getElementById('critic').value = null;
+        document.getElementById('audience').value = null
     }
     
     if (jsonResponse['BoxOffice'] !== 'N/A') {
         document.getElementById('box').value = jsonResponse['BoxOffice']
     } else {
-        document.getElementById('box').placeholder = 'enter'
+        document.getElementById('box').value = 'null'
     }
     const movieSection = document.getElementById('display-movies');
-
+    } else {
+        localStorage.setItem(`Image`, 'https://viterbi-web.usc.edu/~zexunyao/itp301/Assignment_07/img.jpeg');
+        console.log('Hello World');
+        form.style.display='none';
+        const parent = form.parentNode;
+        const notFound = document.createElement('p');
+        notFound.setAttribute('id', 'notFound');
+        notFound.innerHTML = 'Movie not found. Check spelling or insert your own data';
+        parent.insertBefore(notFound,form)
+        setTimeout(() => {
+            document.getElementById('notFound').remove()
+            form.style.display = 'flex'
+        },3000)
+    }
 
 
 
 const addMovie = async (event) => {
+    
     const tit = title.value;
     event.preventDefault();
     const cardStore = {
@@ -70,19 +115,25 @@ const addMovie = async (event) => {
 const firstChild = movieSection.firstChild;
     if (!addedMovies.has(tit)) {
         movieSection.insertBefore(movieCard, firstChild);
-        addCard(cardStore)
+             addCard(cardStore);
+
     setTimeout(() => {
        movieCard.classList.add('loaded');
 
    }, 10)
      movieCard.addEventListener('dblclick', () => {
         movieSection.removeChild(movieCard);
-        removeCard(tit)
+         removeCard(tit);
+
     });
      addedMovies.add(tit);
     console.log(addedMovies)
     }
-
+    setTimeout(() =>  {
+        form.reset();
+        localStorage.setItem(`Image`, 'https://viterbi-web.usc.edu/~zexunyao/itp301/Assignment_07/img.jpeg')
+    }, 100)
+            
 }
 document.getElementById('formSub').addEventListener('click', addMovie)
 }
@@ -120,7 +171,6 @@ const saveDefault = async () => {
     }
     
 }
-
 
 
  const renderDef = async () => {
@@ -166,11 +216,21 @@ const saveDefault = async () => {
     }) 
    
  }
+ const restoreDef = async () => {
+    const save = await saveDefault();
+    setCard([])
+    location.reload();
+ };
+ const clearDef = async () =>  {
+    setDefault([]);
+    location.reload()
+ }
+ document.getElementById('clearDef').addEventListener('click', clearDef)
+ document.getElementById('restoreDefault').addEventListener('click',restoreDef)
  const loadAdd = async () => {
      await renderDef();
     const history = await getCard();
     console.log(history);
-
     history.forEach((card) => {
         const img = card.img;
     const movieCard =  document.createElement('div');
@@ -205,7 +265,40 @@ const saveDefault = async () => {
     }) 
  }
 // document.addEventListener('DOMContentLoaded', loadDef)
-document.addEventListener('DOMContentLoaded', loadAdd)
+document.addEventListener('DOMContentLoaded', loadAdd);
+
+let dropActive = false;
+document.getElementById('dro').addEventListener('click', () => {
+            if(!dropActive){
+                dropActive = true
+                document.getElementById('aa').style.visibility ='visible';
+                document.getElementById('aa').style.opacity ='1';
+                document.getElementById('aa').style.transform ='translateY(120px)';
+            }else if (dropActive) {
+                dropActive = false
+                document.getElementById('aa').style.visibility ='hidden';
+                document.getElementById('aa').style.opacity ='0';
+                document.getElementById('aa').style.transform ='translateY(85px)';
+            }
+})
+let settingsActive = false
+document.getElementById('sett').addEventListener('click', () => {
+    const clear = document.getElementById('clearDef2');
+    const restore = document.getElementById('restoreDefault2');
+    if (!settingsActive) {
+        settingsActive = true;
+        clear.style.display = 'flex';
+        restore.style.display = 'flex';
+        restore.style.transform = 'translateY(1px)'
+        clear.style.transform = 'translateY(1px)'
+    } else if (settingsActive) {
+        settingsActive = false;
+        clear.style.display = 'none';
+        restore.style.display = 'none';
+        restore.style.transform = 'translateY(-15px)'
+        clear.style.transform = 'translateY(-15px)'
+    }
+})
 
 //CHARTS
 const chart1 = document.getElementById('bar').getContext('2d');
@@ -247,24 +340,35 @@ function getRandomColor() {
   }
 
 
-  Chart.defaults.color = "black"
+  Chart.defaults.color = "white"
   Chart.defaults.borderColor = 'lightgrey'
+  if (window.innerWidth > 1000) {
+    Chart.defaults.font.size = '15'
+  } else if (window.innerWidth > 800){
+    Chart.defaults.font.size = '10'
+  } else if (window.innerWidth > 600) {
+    Chart.defaults.font.size = '8'
+  } else if (window.innerWidth < 600) {
+     Chart.defaults.font.size = '10'
+  }
+  
 const barChart = new Chart(chart1, {
     type: 'bar',
     data: {
         labels: domesticSorted.map(movie => movie[0]) || (defaultLabels),
         datasets: [{
-            label: 'Domestic Earnings',
+            label: '     Domestic Earnings',
             data: domesticSorted.map(movie => movie[1]) || (defaultBox),
-            backgroundColor: 'rgba(255,0,0,0.4',
-            borderColor: 'rgba(255,0,0,1)',
+            backgroundColor: 'rgba(0, 255, 255, 0.5) ',
+            borderColor: 'rgb(0, 255, 255)',
             borderWidth: '3',
             borderRadius: '4',
-            hoverBackgroundColor: 'rgba(255,0,0,0.9' ,
+            hoverBackgroundColor: 'rgb(0, 255, 255)' ,
             pointStyle: 'star',
         }]
     },
     options: {
+        maintainAspectRatio: true,
         animation: {
             duration: 1000,
             easing: 'easeInOutQuart',
@@ -280,7 +384,7 @@ const barChart = new Chart(chart1, {
                 labels: {
                     font: {
                         family: 'Montserrat',
-                        size: 20,
+                      
                     }
                 }
             }
@@ -292,9 +396,10 @@ const barChart = new Chart(chart1, {
                     display: true
                 },
                 ticks: {
+                    display: false,
                     font: {
                         family: 'Montserrat', // Your font family
-                        size: 10,
+                   
                       
                     },
                 },
@@ -306,7 +411,7 @@ const barChart = new Chart(chart1, {
                 ticks: {
                     font: {
                         family: 'Montserrat', // Your font family
-                        size: 14,
+                      
                        
                     },
                     // Include a dollar sign in the ticks
@@ -348,31 +453,71 @@ const pieChart = new Chart(chart2, {
     data: {
         labels: genreResults.map(movie => movie[0]) || (defaultLabels),
         datasets: [{
-            label: 'Domestic Earnings',
+            label: '     Domestic Earnings',
             data: genreResults.map(movie => movie[1]) || (defaultBox),
-            backgroundColor: hover,
-            
-            borderWidth: '2',
-            hoverBackgroundColor: background
+            backgroundColor: [
+                'rgba(255, 204, 204, 0.5)',   // Transparent Light Red
+                'rgba(255, 214, 153, 0.5)',   // Transparent Light Orange
+                'rgba(255, 255, 204, 0.5)',   // Transparent Light Yellow
+                'rgba(204, 255, 204, 0.5)',   // Transparent Light Green
+                'rgba(204, 204, 255, 0.5)',   // Transparent Light Blue
+                'rgba(230, 204, 255, 0.5)',   // Transparent Light Purple
+                'rgba(255, 217, 235, 0.5)',   // Transparent Light Pink
+                'rgba(204, 255, 255, 0.5)',   // Transparent Light Cyan
+                'rgba(216, 245, 204, 0.5)',   // Transparent Light Lime
+                'rgba(255, 245, 204, 0.5)',   // Transparent Light Gold
+                'rgba(255, 217, 194, 0.5)'    // Transparent Light Coral
+              ],
+            borderColor: [
+                '#FFCCCC', // Light Red
+                '#FFD699', // Light Orange
+                '#FFFFCC', // Light Yellow
+                '#CCFFCC', // Light Green
+                '#CCCCFF', // Light Blue
+                '#E6CCFF', // Light Purple
+                '#FFD9EB', // Light Pink
+                '#CCFFFF', // Light Cyan
+                '#D8F5CC', // Light Lime
+                '#FFF5CC', // Light Gold
+                '#FFD9C2'  // Light Coral
+              ],
+            borderWidth: '5',
+            hoverBackgroundColor: [
+                '#FFCCCC', // Light Red
+                '#FFD699', // Light Orange
+                '#FFFFCC', // Light Yellow
+                '#CCFFCC', // Light Green
+                '#CCCCFF', // Light Blue
+                '#E6CCFF', // Light Purple
+                '#FFD9EB', // Light Pink
+                '#CCFFFF', // Light Cyan
+                '#D8F5CC', // Light Lime
+                '#FFF5CC', // Light Gold
+                '#FFD9C2'  // Light Coral
+              ]
            
         }]
     },
     options: {
+        
         responsive: true,
+        maintainAspectRatio: true,
         plugins: {
             legend: {
                 display: true,
                 labels: {
                     font: {
                         family: 'Montserrat',
-                        size: '12%',
+                  
                         fontColor: 'black'
                     }
                 }
             }
         },
         scales: {
+            width: '100',
             x: {
+                
                 display: false,
                 grid: {
                     display: true
@@ -380,7 +525,7 @@ const pieChart = new Chart(chart2, {
                 ticks: {
                     font: {
                         family: 'Montserrat', // Your font family
-                        size: 10,
+         
                     },
                 },
             },
@@ -390,7 +535,7 @@ const pieChart = new Chart(chart2, {
                 ticks: {
                     font: {
                         family: 'Montserrat', // Your font family
-                        size: 14,
+                   
                     },
                     // Include a dollar sign in the ticks
                     callback: function (value, index, values) {
@@ -425,20 +570,22 @@ const scatter = new Chart(scat, {
     data: {
         labels: '',
         datasets: [{
-            label: 'Critic',
+            label: '    Critic',
             data: criticDat,
-            backgroundColor: 'grey'
+            backgroundColor: 'rgba(211, 211, 211, 0.5)',
+            borderColor: 'lightgrey'
            
         },
         {
-            label: 'Audience',
+            label: '    Audience',
             data: audDat,
-            backgroundColor: 'lightblue',
-            borderColor: 'white'
+            backgroundColor: 'rgba(0, 0, 255, 0.5)',
+            borderColor: 'blue'
         }
         ]
     },
     options: {
+        maintainAspectRatio: true,
         responsive: true,
         plugins: {
             legend: {
@@ -446,8 +593,6 @@ const scatter = new Chart(scat, {
                 labels: {
                     font: {
                         family: 'Montserrat',
-                        size: 20,
-                        fontColor: 'black'
                     }
                 }
             }
@@ -460,7 +605,6 @@ const scatter = new Chart(scat, {
                 ticks: {
                     font: {
                         family: 'Montserrat', 
-                        size: 10,
                     },
                 },
             },
@@ -469,7 +613,6 @@ const scatter = new Chart(scat, {
                 ticks: {
                     font: {
                         family: 'Montserrat', 
-                        size: 14,
                     },
                     
                     callback: function (value, index, values) {
