@@ -12,7 +12,6 @@ export const handleRouting = async (event) => {
         menu.style.display = 'none';
         menu.style.display = 'flex';
         menu.style.visibility = 'visible'
-
         
     }else if (window.location.pathname ==='/Movies') {
         document.getElementById('source').setAttribute('href','/Movies#br')
@@ -26,7 +25,7 @@ export const handleRouting = async (event) => {
       
     }else if (window.location.pathname === '/Charts') {
         window.addEventListener('resize', function() {
-            // Reload the page
+            
             location.reload();
           });
           document.body.style.backgroundColor = '#2d2d2d';

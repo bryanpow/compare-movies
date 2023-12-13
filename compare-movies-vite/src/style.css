@@ -321,7 +321,8 @@ header {
   font-size: 20px;
 }
 #graphic {
-  z-index: -1
+  z-index: -1;
+ transform: translateX(10px);
 }
 .start {
   font-family: 'Montserrat', sans-serif;
@@ -768,6 +769,8 @@ gap: 10px
 }
 
 /* MEDIA */
+
+
 @media(min-width:1301px) {
   #start2 {
     display:none
@@ -916,6 +919,9 @@ gap: 10px
   }
 }
 @media(max-width: 700px) {
+  #graphic {
+    transform: translateX(100px)
+    }
   #dro {
     display: flex;
   }
@@ -997,6 +1003,7 @@ gap: 10px
     height: calc(218.59px * 1.2);
   }
   #graphic {
+    transform: none;
     width: 469px;
     height: 490px;
   }
@@ -1083,9 +1090,19 @@ gap: 10px
     font-size: 40px;
   }
   #start2 {
-    transform: translateY(-5);
+    transform: translateY(-20px);
     z-index: 5
     
+  }
+  #land {
+    overflow-y: hidden;
+    height: 100vh;
+  }
+  #desc h2 {
+    transform: translateY(100px);
+  }
+  #landp {
+    transform: none;
   }
 }
 @media (max-width:430px) {
@@ -1125,15 +1142,8 @@ gap: 10px
   #graphic {
   
   }
-  #land {
-    overflow: hidden;
-  }
-  #desc h2 {
-   
-    font-size: 30px;
-    transform: translateY(8px);
-    transform: translateX(-20px);
-  }
+
+  
 }
  
 

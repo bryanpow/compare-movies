@@ -9,6 +9,19 @@ import {getCard, setCard, addCard, removeCard, getDefault,setDefault, addDefault
 let titleData = null;
 
 
+function sanitizeInput(input) {
+    // Replace HTML special characters with their entities
+    return input.replace(/[&<>"']/g, function(match) {
+        return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        }[match];
+    });
+}
+
 let seClicked = false;
 const handleSettings = () => {
         if (!seClicked){
@@ -92,9 +105,9 @@ const addMovie = async (event) => {
     const cardStore = {
         img: localStorage.getItem('Image'),
         title: tit,
-        critic: document.getElementById('critic').value,
-        veiwer: document.getElementById('audience').value,
-        box: parseFloat(document.getElementById('box').value.replace(/[^0-9.-]+/g, '')),
+        critic: sanitizeInput(document.getElementById('critic').value),
+        veiwer: sanitizeInput(document.getElementById('audience').value),
+        box: parseFloat(sanitizeInput(document.getElementById('box').value).replace(/[^0-9.-]+/g, '')),
         genre: document.getElementById('genre').value
     }
     
@@ -103,11 +116,11 @@ const addMovie = async (event) => {
 
     movieCard.innerHTML = 
 `<div id=${Math.floor(Math.random() * 1393939300303033)} class='cardInfo'>
-<p class='divtitle' style='font-weight:bold; padding-top: 5px'>${title.value}</p>
-<p>Critic-score: ${document.getElementById('critic').value}%</p>
-<p>Viewer-score: ${document.getElementById('audience').value}%</p>
-<p>Box-Office: ${document.getElementById('box').value}</p>
-<p>Genre: ${document.getElementById('genre').value}</p>
+<p class='divtitle' style='font-weight:bold; padding-top: 5px'>${sanitizeInput(title.value)}</p>
+<p>Critic-score: ${sanitizeInput(document.getElementById('critic').value)}%</p>
+<p>Viewer-score: ${sanitizeInput(document.getElementById('audience').value)}%</p>
+<p>Box-Office: ${sanitizeInput(document.getElementById('box').value)}</p>
+<p>Genre: ${sanitizeInput(document.getElementById('genre').value)}</p>
 </div>
 
 <img src = ${localStorage.getItem('Image')} width='100%' height='100%' class='cardPicture'>
@@ -217,9 +230,11 @@ const saveDefault = async () => {
    
  }
  const restoreDef = async () => {
-    const save = await saveDefault();
-    setCard([])
     location.reload();
+    setCard([])
+    await saveDefault();
+    
+   
  };
  const clearDef = async () =>  {
     setDefault([]);
