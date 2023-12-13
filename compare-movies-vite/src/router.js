@@ -5,7 +5,7 @@ const foot = document.getElementById('br');
 
 
 export const handleRouting = async (event) => {
-    if (window.location.pathname === '/compare-movies/') {
+    if (window.location.pathname === '/') {
     
        movies.style.display = 'none';
         chart.style.display = 'none';
@@ -13,8 +13,8 @@ export const handleRouting = async (event) => {
         menu.style.display = 'flex';
         menu.style.visibility = 'visible'
         
-    }else if (window.location.pathname ==='/compare-movies/Movies') {
-        document.getElementById('source').setAttribute('href','/compare-movies/Movies#br')
+    }else if (window.location.pathname ==='/Movies') {
+        document.getElementById('source').setAttribute('href','/Movies#br')
         document.getElementById('restoreDefault').style.visibility= 'visible';
         document.getElementById('clearDef').style.visibility = 'visible'
         document.getElementById('se').style.visibility = 'visible'
@@ -23,7 +23,7 @@ export const handleRouting = async (event) => {
         movies.style.display = 'flex';
         movies.style.visibility = 'visible'
       
-    }else if (window.location.pathname === '/compare-movies/Charts') {
+    }else if (window.location.pathname === '/Charts') {
         window.addEventListener('resize', function() {
             
             location.reload();
@@ -48,7 +48,7 @@ export const handleRouting = async (event) => {
             const logoH2 = document.querySelector('#logo h2');
             logoH2.style.color = 'white';
 
-        document.getElementById('source').setAttribute('href','/compare-movies/Charts#br')
+        document.getElementById('source').setAttribute('href','/Charts#br')
         menu.style.display = 'none';
         movies.style.display = 'none';
         chart.style.display = 'flex';
