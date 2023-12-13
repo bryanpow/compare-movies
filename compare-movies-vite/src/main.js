@@ -8,7 +8,8 @@ const button = document.getElementById('titleSub');
 import {getCard, setCard, addCard, removeCard, getDefault,setDefault, addDefault, removeDef} from './localStorage'
 let titleData = null;
 
-
+const apiKey =  import.meta.env.VITE_API_KEY;
+ console.log(apiKey)
 function sanitizeInput(input) {
     // Replace HTML special characters with their entities
     return input.replace(/[&<>"']/g, function(match) {
@@ -57,7 +58,8 @@ const addedMovies = new Set();
 if (!getCard) setCard([]);
 
 const getMovie = async (event) => {
-    let url = `http://www.omdbapi.com/?apikey=191759f3&&t=${titleData}`;
+    const apiKey = import.meta.env.VITE_API_KEY
+    let url = `http://www.omdbapi.com/?apikey=${apiKey}3&&t=${titleData}`;
     const response = await fetch(url);
     const jsonResponse = await response.json()
     console.log(jsonResponse['Response']);
@@ -167,7 +169,10 @@ const saveDefault = async () => {
     const jMovies = defaultMov;
     localStorage.removeItem('default')
     for(const movie of jMovies) {
-        let url = `http://www.omdbapi.com/?apikey=191759f3&&t=${movie.title}`;
+
+        const apiKey =  import.meta.env.VITE_API_KEY
+        
+        let url = `http://www.omdbapi.com/?apikey=${apiKey}3&&t=${titleData}`;
         const response =  await fetch(url);
         const jsonResponse = await response.json()
         console.log(jsonResponse);
