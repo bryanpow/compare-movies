@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="/assets/index-ZyjQdgZK.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-7gUfZrhN.css">
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <div id="logo"><a href="/"><img id='log2' src="/assets/video-player-ntHSpTZu.png" width='40px' height="40px"><h2 style="font-weight: normal;">MovieMetrics</h2></a></div>
+        <div id="nav">
+          <div id="settings">
+            <p id="se">Settings ↓</p>
+            <div id="op">
+             <p id="clearDef" style="border: 2px solid black; color: white ">Clear Defaults</p>
+             <p id="restoreDefault" style="border: 2px solid black; color: white " >Restore Defaults</p>
+             </div>
+          </div>
+         
+          <div id="pop">
+            <p  id='dro' style="font-size: 50px">☰</p>
+            <div id="aa">
+          <a id="ho" href="/Movies"><p class="gr">Movies</p></a>
+          <a href="/Charts"><p class="gr">Charts</p></a>
+          <a href="/#br" id="source"><p class="gr">Sources</p></a>
+            <p id=sett style="font-size: 20px; text-align: center;">Settings </p>
+            <p id="clearDef2" style="font-size: 20px;">Clear Defaults</p>
+            <p id="restoreDefault2" style="font-size: 20px;">Restore Defaults</p>
+           
+          </div>
+        </div>
+        </div>
+        </div>
+      </header>
+      <main>
+        <div id="landp">
+        <div id="land">
+          <div id="desc">
+          <h2 id="tit2">Discover MovieMetrics</h2>
+          <p id="goto">
+            Your go-to destination for comprehensive movie analysis. Dive into dynamic charts, effortlessly compare ratings and earnings, and stay informed about domestic cinematic trends—all in one intuitive platform.
+            </p>
+            <a href="/Movies"><button class="start" id="start">Get Started</button></a>
+          </div>
+          <div id="force">
+          <img id="graphic" src="/assets/Videotape-amicoBLACK-GizwLJNb.svg"  width="670px" height="700px">
+        </div>
+          <a href="/Movies"><button class="start" id="start2">Get Started</button></a>
+        </div>
+        <div id="pos">
+          <div class="homeInfo">
+           
+            <div class="right" data-aos="fade-right" data-aos-duration="900">
+            <h1>Movie Search and Display 🔍</h1>
+            <p>Explore the vast world of cinema with our intuitive movie search and display feature. Easily discover and retrieve automated data for popular titles. Whether you're looking for your favorite classics or the latest blockbusters, our search engine makes it a breeze to find and display detailed information for any movie.</p>
+            </div>
+          </div>
+          <div class="homeInfo">
+          
+            <div class="right" data-aos="fade-right" data-aos-duration="900">
+            <h1>Interactive Movie Comparison Charts 📊</h1>
+            <p>Dive into the data-driven experience of our interactive movie comparison charts. Uncover insights into box office performance, ratings, and the intriguing contrast between critic and audience opinions. Visualize the data in beautifully crafted charts that allow you to compare and contrast the movies you love.</p>
+          </div>
+          </div>
+          <div class="homeInfo" >
+          
+            <div class="right" id="one" data-aos="fade-right" data-aos-duration="900">
+            <h1>Personalized Movie Insights 🎬
+              </h1>
+            <p>Our platform empowers you to curate your own collection of movies, explore their data, and make informed decisions about your next cinematic journey. Your movie-watching experience just got a whole lot smarter.</p>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div id="moviePage">
+        <div id="movieIntro">
+          <div id=textMov><h1>Movies</h1><p> Easily add new movies to the lineup and discover pre-populated data for recognized titles, or double-click to remove a movie. Immerse yourself in the cinematic world as you delve into insightful charts comparing movie ratings and box office performance.</p></div>
+        </div>
+        <div id="movies">
+        
+          <div id="add-movie">
+            <form id="movieForm">
+              
+              <h3 id='formTitle' style="font-weight: 400">Add Movie +</h3>
+              <div id="formItems">
+               
+               <div class="in">
+                <label for="title">Movie-Title: </label>
+              <input type="text" name="title" id="title" autocomplete="off" required >
+              <button id="titleSub" type="submit">Search</button>
+              </div>
+
+              <div class="in">
+                <label for="critic">Critic Score: </label>
+                <input type="number" name="critic" id="critic" autocomplete="off"  required>
+              </div>
+              
+              <div class="in">
+                <label for='audience'>Viewer Score: </label>
+              <input type="number" name="audience" id="audience" autocomplete="off"  required>
+              </div>
+
+              <div class="in">
+                <label for="box">Box Office: </label>
+              <input type=text name="box" id="box" autocomplete="off"  required>
+              </div>
+
+              <div class="in">
+                <label for=genre>Genre:</label>
+              <select id="genre" name="genre" autocomplete="off"  required>
+                <option value="" disabled selected>Select genre</option>
+                <option value="action">Action</option>
+                <option value="adventure">Adventure</option>
+                <option value="comedy">Comedy</option>
+                <option value="drama">Drama</option>
+                <option value="horror">Horror</option>
+                <option value="documentary">Documentary</option>
+                <option value="musical">Musical</option>
+                <option value="romance">Romance</option>
+                <option value="sci-fi">Sci-Fi</option>
+                <option value="thriller">Thriller</option>
+              </select>
+              </div>
+              <div id="butts">
+              <button id="formSub" class="in">Add</button> 
+            </div>
+            </div>
+            </form>
+          </div>
+          </div>
+          <div id="m">
+          <div id="display-movies">
+          </div>
+          </div>
+          </div>
+          <div id="container">
+            <div id="top">
+              <canvas id="bar"></canvas>
+            </div>
+           
+            <div id="p">
+              <canvas id="pie"></canvas>
+            </div>
+           <div id="s">
+            <canvas id="scatter"></canvas>
+          </div>
+          </div>
+        </div>
+      </main>
+      <footer id="br">
+        <div id="border">
+        <div id="info">
+        <div class="foot" id="comp"><h3>MOVIEMETRICS</h3>Explore, compare, and discover your favorite movies through insightful charts and data. </div>
+        <div class="foot" id="features">
+          <h3>FEATURES</h3>
+          <p>Display</p>
+          <p>Movie Data</p>
+          <p>Charts</p>
+          <p>Comparisons</p>
+        </div>
+        <div class="foot" id="link">
+          <h3>SOURCES</h3>
+          <a class ='bub' id="white3" href="https://www.omdbapi.com/" target="_blank">API</a>
+          <a  class='bub' id="white" href="https://storyset.com/home" target="_blank">Graphic 1 (StorySet)</a>
+          <a class="bub" id='white2' href="https://www.flaticon.com/" target="_blank">All Icons</a>
+        </div>
+        <div class=foot id="contact">
+          <h3>CONTACT</h3>
+          <div class="con"><img class="cont" style="background-color: white; padding: 2px; border-radius: 100%;" src="/assets/home-IKv-beCr.png" width="20px" height="20px"><p>New York, U.S.</p></div>
+          <div class="con"><img class="cont" style="background-color: white; padding: 2px; border-radius: 100%;" src="/assets/mail-hwF-VpZE.png" width="20px" height="20px"><p>RamosBusiness</p></div>
+          <div class="con"><img class="cont" style="background-color: white; padding: 2px; border-radius: 100%;" src='/assets/telephone-ik8bqzuv.png'  width="20px" height="20px"><p>+01 347-564-3844</p></div>
+          <!-- <div><img src="/src/github.png"  width="20px"><p>bryanpow</p></div> -->
+        </div>
+      </div>
+      <div id="bot">
+        <div id="copy"><p>&copy;2023 Bryan Ramos</p></div>
+        <div id="icons">
+          <a  href="https://www.linkedin.com/in/bryan-ramos-174826279/" target="_blank"><img style="background-color: white;  border-radius: 100%;" src="/assets/social-Im4SElCT.png" width="50px"></a>
+          <a href="https://github.com/bryanpow" target="_blank"><img style="background-color: white; padding: 5px; border-radius: 100%;" src='/assets/github-OhMRit0i.png' width="35px"></a>
+        </div>
+      </div>
+        </div>
+      </footer>
+    </div>
+    <script>
+      AOS.init({
+        once: true
+      });
+    </script>
+  </body>
+</html>
