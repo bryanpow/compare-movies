@@ -13,7 +13,7 @@ export const handleRouting = async (event) => {
         menu.style.display = 'flex';
         menu.style.visibility = 'visible'
         
-    }else if (window.location.pathname ==='/compare-movies/Movies') {
+    }else if (window.location.pathname ==='/Movies') {
         document.getElementById('source').setAttribute('href','/compare-movies/Movies#br')
         document.getElementById('restoreDefault').style.visibility= 'visible';
         document.getElementById('clearDef').style.visibility = 'visible'
