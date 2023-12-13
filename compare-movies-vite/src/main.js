@@ -322,8 +322,16 @@ const defaultData = getDefault();
 const addedData = getCard();
 const getBox = (target) => target.map(movie => movie.box)
 const defaultBox = getBox(defaultData)
-const allDomestic = (defaultData.concat(addedData).map(movie => [movie.title,movie.box])) || (defaultData.map(movie => [movie.title,movie.box]));
-const domesticSorted = allDomestic.sort((a,b) => b[1] - a[1]);
+let allDomestic = null;
+if (!addedData) allDomestic = (defaultData.map(movie => [movie.title,movie.box]))
+else allDomestic = (defaultData.concat(addedData).map(movie => [movie.title,movie.box]));
+  
+
+ 
+
+console.log(allDomestic)
+let  domesticSorted = allDomestic.sort((a,b) => b[1] - a[1]);
+if (!getCard) domesticSorted = domestic.sort((a,b) => b[1] - a[1]);
 const allData = defaultData.concat(addedData || ([]))
 console.log(domesticSorted);
 let background = Array.from({ length: domesticSorted.length },() => getRandomColor());
