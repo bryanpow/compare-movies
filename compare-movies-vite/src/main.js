@@ -58,7 +58,7 @@ const addedMovies = new Set();
 if (!getCard) setCard([]);
 
 const getMovie = async (event) => {
-    const apiKey = import.meta.env.VITE_API_KEY
+    apiKey = '191759f3'
     let url = `http://www.omdbapi.com/?apikey=${apiKey}3&&t=${titleData}`;
     const response = await fetch(url);
     const jsonResponse = await response.json()
@@ -170,8 +170,7 @@ const saveDefault = async () => {
     localStorage.removeItem('default')
     for(const movie of jMovies) {
 
-        const apiKey =  import.meta.env.VITE_API_KEY
-        
+        const apiKey = '191759f3';
         let url = `http://www.omdbapi.com/?apikey=${apiKey}3&&t=${titleData}`;
         const response =  await fetch(url);
         const jsonResponse = await response.json()
