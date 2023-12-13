@@ -494,7 +494,7 @@ a {
   width: 80%;
   margin: 0 auto;
   z-index: 1;
-  animation: fadeIn 0.7s forwards  ;
+  animation: fadeIn 0.7s forwards;
   animation-iteration-count: 1;
 }
 #movieIntro p {
