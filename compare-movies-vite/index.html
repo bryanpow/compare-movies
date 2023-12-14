@@ -10,6 +10,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/Chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
@@ -17,10 +18,10 @@
   <body>
     <div id="app">
       <header>
-        <div id="logo"><a href="/compare-movies/"><img id='log2' src="/public/video-player.png" width='40px' height="40px"><h2 style="font-weight: normal;">MovieMetrics</h2></a></div>
+        <div id="logo" style="display: flex; align-items: center; gap: 10px"><img id='log2' src="/public/video-player.png" width='40px' height="40px"><h2 id="logg" style="font-weight: normal;">MovieMetrics</h2></div>
         <div id="nav">
           <div id="settings">
-            <p id="se">Settings ↓</p>
+            <p id="se" class ='change'>Settings ↓</p>
             <div id="op">
              <p id="clearDef" style="border: 2px solid black; color: white ">My List</p>
              <p id="restoreDefault" style="border: 2px solid black; color: white " >Restore Defaults</p>
@@ -30,10 +31,10 @@
           <div id="pop">
             <p  id='dro' style="font-size: 50px">☰</p>
             <div id="aa">
-          <a id="ho" href="/compare-movies/Movies"><p class="gr">Movies</p></a>
-          <a href="/compare-movies/Charts"><p class="gr">Charts</p></a>
-          <a href="/compare-movies/#br" id="source"><p class="gr">Sources</p></a>
-            <p id=sett style="font-size: 20px; text-align: center;">Settings </p>
+          <p id="ho" class="gr change">Movies</p>
+          <p id="char"  class="gr change">Charts</p>
+          <a href="/#br"  id="source"><p class="gr change">Sources</p></a>
+            <p class="change" id=sett style="font-size: 20px; text-align: center;">Settings </p>
             <p id="clearDef2" style="font-size: 20px;">My List</p>
             <p id="restoreDefault2" style="font-size: 20px;">Restore Defaults</p>
            
@@ -50,12 +51,12 @@
           <p id="goto">
             Your go-to destination for comprehensive movie analysis. Dive into dynamic charts, effortlessly compare ratings and earnings, and stay informed about domestic cinematic trends—all in one intuitive platform.
             </p>
-            <a href="/Movies"><button class="start" id="start">Get Started</button></a>
+            <button style="align-self: flex-start;" class="start" id="start">Get Started</button>
           </div>
           <div id="force">
-          <img id="graphic" src="public/Videotape-amicoBLACK.svg"  width="670px" height="700px">
+          <img id="graphic" src="/public/Videotape-amicoBLACK.svg"  width="670px" height="700px">
         </div>
-          <a href="/Movies"><button class="start" id="start2">Get Started</button></a>
+         <button class="start" id="start2">Get Started</button>
         </div>
         <div id="pos">
           <div class="homeInfo">

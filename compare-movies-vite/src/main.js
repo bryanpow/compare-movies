@@ -1,5 +1,6 @@
 
-import { handleRouting } from './router.js';
+import { handleHome, handleMovies, handleChart } from './router.js';
+import { barChart, pieChart, scatter } from './Chart.js';
 import Chart from 'chart.js/auto'
 import defaultMov from './movie-data.json';
 let form = document.getElementById('movieForm');
@@ -7,9 +8,29 @@ const title = document.getElementById('title');
 const button = document.getElementById('titleSub');
 import {getCard, setCard, addCard, removeCard, getDefault,setDefault, addDefault, removeDef} from './localStorage'
 let titleData = null;
+const handleNavigation = () => {
+    const currentUrl = window.location.pathname;
 
-const apiKey =  import.meta.env.VITE_API_KEY;
- console.log(apiKey)
+    if (currentUrl === '/') {
+        handleHome();
+    } else if (currentUrl === '/Movies') {
+        handleMovies();
+    } else if (currentUrl === '/Chart') {
+        handleChart();
+    } else {
+       handleHome()
+    }
+};
+barChart();
+pieChart();
+scatter()
+document.addEventListener('DOMContentLoaded', handleNavigation)
+window.addEventListener('popstate', handleNavigation)
+document.getElementById('logo').addEventListener('click', handleHome);
+document.getElementById('ho').addEventListener('click', handleMovies);
+document.getElementById('char').addEventListener('click', handleChart);
+document.getElementById('start2').addEventListener('click', handleMovies)
+
 function sanitizeInput(input) {
     // Replace HTML special characters with their entities
     return input.replace(/[&<>"']/g, function(match) {
@@ -51,15 +72,15 @@ const handleSettings = () => {
 document.getElementById('se').addEventListener('click', handleSettings)
 
 
-document.addEventListener('DOMContentLoaded', handleRouting)
+
 const movieSection = document.getElementById('display-movies')
 const addedMovies = new Set();
 
 if (!getCard) setCard([]);
 
 const getMovie = async (event) => {
-    apiKey = '191759f3'
-    let url = `http://www.omdbapi.com/?apikey=${apiKey}3&&t=${titleData}`;
+    const apiKey = '191759f3'
+    let url = `http://www.omdbapi.com/?apikey=${apiKey}&&t=${titleData}`;
     const response = await fetch(url);
     const jsonResponse = await response.json()
     console.log(jsonResponse['Response']);
@@ -131,6 +152,9 @@ const firstChild = movieSection.firstChild;
     if (!addedMovies.has(tit)) {
         movieSection.insertBefore(movieCard, firstChild);
              addCard(cardStore);
+             barChart();
+             pieChart();
+             scatter()
 
     setTimeout(() => {
        movieCard.classList.add('loaded');
@@ -169,9 +193,8 @@ const saveDefault = async () => {
     const jMovies = defaultMov;
     localStorage.removeItem('default')
     for(const movie of jMovies) {
-
-        const apiKey = '191759f3';
-        let url = `http://www.omdbapi.com/?apikey=${apiKey}3&&t=${titleData}`;
+        const apiKey = '191759f3'
+        let url = `http://www.omdbapi.com/?apikey=${apiKey}&&t=${movie.title}`;
         const response =  await fetch(url);
         const jsonResponse = await response.json()
         console.log(jsonResponse);
@@ -318,354 +341,4 @@ document.getElementById('sett').addEventListener('click', () => {
         clear.style.transform = 'translateY(-15px)'
     }
 })
-
-//CHARTS
-const chart1 = document.getElementById('bar').getContext('2d');
-const chart2 =document.getElementById('pie').getContext('2d')
-const defaultData = getDefault();
-const addedData = getCard();
-const getBox = (target) => target.map(movie => movie.box)
-const defaultBox = getBox(defaultData)
-let allDomestic = null;
-if (!addedData) allDomestic = (defaultData.map(movie => [movie.title,movie.box]))
-else allDomestic = (defaultData.concat(addedData).map(movie => [movie.title,movie.box]));
-  
-
- 
-
-console.log(allDomestic)
-let  domesticSorted = allDomestic.sort((a,b) => b[1] - a[1]);
-if (!getCard) domesticSorted = domestic.sort((a,b) => b[1] - a[1]);
-const allData = defaultData.concat(addedData || ([]))
-console.log(domesticSorted);
-let background = Array.from({ length: domesticSorted.length },() => getRandomColor());
-let border = background.map(color => changeTransparency(color, 1))
-let hover = background.map(color => changeTransparency(color, 0.5))
-
-
-
-console.log(defaultData);
-const defaultLabels = defaultData.map(movie => movie.title);
-
-
-function getRandomColor() {
-    const randomComponent = () => Math.floor(Math.random() * 256); 
-    const red = randomComponent();
-    const green = randomComponent();
-    const blue = randomComponent();
-    const alpha = 0.2; 
-    const color = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
-    return color;
-  }
-
-  function changeTransparency(rgbaColor, newAlpha) {
-  
-    const values = rgbaColor.match(/\d+/g);
-    const [red, green, blue, _] = values; 
-    const newColor = `rgba(${red}, ${green}, ${blue}, ${newAlpha})`;
-    return newColor;
-  }
-
-
-  Chart.defaults.color = "white"
-  Chart.defaults.borderColor = 'lightgrey'
-  if (window.innerWidth > 1000) {
-    Chart.defaults.font.size = '15'
-  } else if (window.innerWidth > 800){
-    Chart.defaults.font.size = '10'
-  } else if (window.innerWidth > 600) {
-    Chart.defaults.font.size = '8'
-  } else if (window.innerWidth < 600) {
-     Chart.defaults.font.size = '10'
-  }
-  
-const barChart = new Chart(chart1, {
-    type: 'bar',
-    data: {
-        labels: domesticSorted.map(movie => movie[0]) || (defaultLabels),
-        datasets: [{
-            label: '     Domestic Earnings',
-            data: domesticSorted.map(movie => movie[1]) || (defaultBox),
-            backgroundColor: 'rgba(0, 255, 255, 0.5) ',
-            borderColor: 'rgb(0, 255, 255)',
-            borderWidth: '3',
-            borderRadius: '4',
-            hoverBackgroundColor: 'rgb(0, 255, 255)' ,
-            pointStyle: 'star',
-        }]
-    },
-    options: {
-        maintainAspectRatio: true,
-        animation: {
-            duration: 1000,
-            easing: 'easeInOutQuart',
-            onComplete: function(animation) {
-                // Add a callback to execute after the animation is complete
-                console.log('Animation complete');
-            },
-        },
-        responsive: true,
-        plugins: {
-            legend: {
-                display: true,
-                labels: {
-                    font: {
-                        family: 'Montserrat',
-                      
-                    }
-                }
-            }
-        },
-        scales: {
-            x: {
-                display: true,
-                grid: {
-                    display: true
-                },
-                ticks: {
-                    display: false,
-                    font: {
-                        family: 'Montserrat', // Your font family
-                   
-                      
-                    },
-                },
-                color: 'black'
-            },
-            y: {
-                display: true,
-                beginAtZero: true,
-                ticks: {
-                    font: {
-                        family: 'Montserrat', // Your font family
-                      
-                       
-                    },
-                    // Include a dollar sign in the ticks
-                    callback: function (value, index, values) {
-                        return '$' + value;
-                    },
-                },
-            }
-        }
-    },
-
-});
-
-
-
-let genres = [['action', 0], ['adventure',0], ['comedy',0], ['drama',0], ['horror',0],['concert',0], ['documentary',0], ['musical',0], ['romance',0], ['sci-fi',0], ['thriller',0]]
-
-
-const getGenre = (target) => {
-    target.forEach((movie) => {
-        for (const arr of genres) {
-            if (arr[0] === movie.genre) {
-                arr[1] += movie.box
-            }
-        }
-    })
-}
-
-
-
-  getGenre(allData);
-    const genreResults = genres.filter(genre => genre[1] > 0);
-    console.log(genreResults)
-   
-
-
-const pieChart = new Chart(chart2, {
-    type: 'doughnut',
-    data: {
-        labels: genreResults.map(movie => movie[0]) || (defaultLabels),
-        datasets: [{
-            label: '     Domestic Earnings',
-            data: genreResults.map(movie => movie[1]) || (defaultBox),
-            backgroundColor: [
-                'rgba(255, 204, 204, 0.5)',   // Transparent Light Red
-                'rgba(255, 214, 153, 0.5)',   // Transparent Light Orange
-                'rgba(255, 255, 204, 0.5)',   // Transparent Light Yellow
-                'rgba(204, 255, 204, 0.5)',   // Transparent Light Green
-                'rgba(204, 204, 255, 0.5)',   // Transparent Light Blue
-                'rgba(230, 204, 255, 0.5)',   // Transparent Light Purple
-                'rgba(255, 217, 235, 0.5)',   // Transparent Light Pink
-                'rgba(204, 255, 255, 0.5)',   // Transparent Light Cyan
-                'rgba(216, 245, 204, 0.5)',   // Transparent Light Lime
-                'rgba(255, 245, 204, 0.5)',   // Transparent Light Gold
-                'rgba(255, 217, 194, 0.5)'    // Transparent Light Coral
-              ],
-            borderColor: [
-                '#FFCCCC', // Light Red
-                '#FFD699', // Light Orange
-                '#FFFFCC', // Light Yellow
-                '#CCFFCC', // Light Green
-                '#CCCCFF', // Light Blue
-                '#E6CCFF', // Light Purple
-                '#FFD9EB', // Light Pink
-                '#CCFFFF', // Light Cyan
-                '#D8F5CC', // Light Lime
-                '#FFF5CC', // Light Gold
-                '#FFD9C2'  // Light Coral
-              ],
-            borderWidth: '5',
-            hoverBackgroundColor: [
-                '#FFCCCC', // Light Red
-                '#FFD699', // Light Orange
-                '#FFFFCC', // Light Yellow
-                '#CCFFCC', // Light Green
-                '#CCCCFF', // Light Blue
-                '#E6CCFF', // Light Purple
-                '#FFD9EB', // Light Pink
-                '#CCFFFF', // Light Cyan
-                '#D8F5CC', // Light Lime
-                '#FFF5CC', // Light Gold
-                '#FFD9C2'  // Light Coral
-              ]
-           
-        }]
-    },
-    options: {
-        
-        responsive: true,
-        maintainAspectRatio: true,
-        plugins: {
-            legend: {
-                display: true,
-                labels: {
-                    font: {
-                        family: 'Montserrat',
-                  
-                        fontColor: 'black'
-                    }
-                }
-            }
-        },
-        scales: {
-            width: '100',
-            x: {
-                
-                display: false,
-                grid: {
-                    display: true
-                },
-                ticks: {
-                    font: {
-                        family: 'Montserrat', // Your font family
-         
-                    },
-                },
-            },
-            y: {
-                display: false,
-                beginAtZero: true,
-                ticks: {
-                    font: {
-                        family: 'Montserrat', // Your font family
-                   
-                    },
-                    // Include a dollar sign in the ticks
-                    callback: function (value, index, values) {
-                        return '$' + value;
-                    },
-                },
-            }
-        }
-    },
-
-});
-
-
-
-
-const scat = document.getElementById('scatter');
-const criticDat = [];
-const audDat = [];
-allData.forEach(movie => {
-    audDat.push([movie.veiwer,movie.box]);
-})
-allData.forEach(movie => {
-    criticDat.push([movie.critic,movie.box]);
-})
-console.log(audDat);
-console.log(criticDat)
-
-
-
-const scatter = new Chart(scat, {
-    type: 'scatter',
-    data: {
-        labels: '',
-        datasets: [{
-            label: '    Critic',
-            data: criticDat,
-            backgroundColor: 'rgba(211, 211, 211, 0.5)',
-            borderColor: 'lightgrey'
-           
-        },
-        {
-            label: '    Audience',
-            data: audDat,
-            backgroundColor: 'rgba(0, 0, 255, 0.5)',
-            borderColor: 'blue'
-        }
-        ]
-    },
-    options: {
-        maintainAspectRatio: true,
-        responsive: true,
-        plugins: {
-            legend: {
-                display: true,
-                labels: {
-                    font: {
-                        family: 'Montserrat',
-                    }
-                }
-            }
-        },
-        scales: {
-            x: {
-                grid: {
-                    display: true
-                },
-                ticks: {
-                    font: {
-                        family: 'Montserrat', 
-                    },
-                },
-            },
-            y: {
-                beginAtZero: true,
-                ticks: {
-                    font: {
-                        family: 'Montserrat', 
-                    },
-                    
-                    callback: function (value, index, values) {
-                        return '$' + value;
-                    },
-                },
-            }
-        }
-    },
-
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
