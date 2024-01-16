@@ -419,17 +419,17 @@ form button {
 }
 #p {
   opacity: 0;
-  animation: slideIn3 0.5s 0.2s forwards;
+  animation: slideIn3 0s 0s forwards;
   /* background: linear-gradient(to bottom, #FF9999, #FF3333); */
 }
 #s {
-  animation: slideIn4 0.5s 0.6s forwards;
+  animation: slideIn4 0s 0s forwards;
   opacity: 0
 }
 @keyframes slideIn2 {
   from {
-      opacity: 0;
-      transform: translateY(-30px);
+      opacity: 1;
+      ;
   }
   to {
       opacity: 1;
@@ -437,14 +437,21 @@ form button {
   }
 }
 
+
 #top {
-  opacity: 0;
-  animation: slideIn2 0s forwards ;
+  opacity: 1;
+  /* animation: slideIn2 0s forwards ; */
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); */
   border-radius: 20px;
   padding: 40px;
 
   background-color: white;
+}
+#logg {
+  cursor: pointer;
+}
+#logo {
+  cursor: pointer;
 }
 #nav p {
   cursor: pointer;
@@ -936,13 +943,16 @@ gap: 10px
     font-size: 15px;
     z-index: 6;
   }
-  #aa a {
+  #aa a , #aa .let{
     
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     width: 200px;
     text-align: center;
     transition: all 0.2s;
   }
+ #aa .let p {
+  font-size: 20px;
+ }
   #aa a:hover {
     
     background-color: lightgray;
@@ -1029,6 +1039,7 @@ gap: 10px
   }
   #se {
    display: none;
+   transition: all 0s
   }
 
   /* #pop {
@@ -1139,13 +1150,7 @@ gap: 10px
    
   };
 }
-@media (max-width: 360px) {
-  #graphic {
-  
-  }
 
-  
-}
  
 
  
